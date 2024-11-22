@@ -1,0 +1,21 @@
+{
+  "name": "gabi.zenith.framework",
+  "version": "1.0.0",
+  "displayName": "ZenithFramework",
+  "description": "Gameplay framework to help developing games faster",
+  "unity": "2019.1",
+  "unityRelease": "0b5",
+  "documentationUrl": "https://github.com/gabrielgborges/GB-Framework/",
+  "changelogUrl": "https://example.com/changelog.html",
+  "licensesUrl": "https://example.com/licensing.html",
+  "keywords": [
+    "Framework",
+    "Architecture",
+    "Gameplay"
+  ],
+  "author": {
+    "name": "GabrielBorges",
+    "email": "gabriel.goncalves.borges@gmail.com",
+    "url": "https://github.com/gabrielgborges"
+  }
+}
