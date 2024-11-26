@@ -1,0 +1,1 @@
+public class GoToCharacterSelectionEvent : GameEvent { }
