@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameSystem : MonoBehaviour
+public class GameSystemComponent : MonoBehaviour
 {
     [SerializeField] private GameObject _battleground;
     [SerializeField] private GameObject _battleUI;

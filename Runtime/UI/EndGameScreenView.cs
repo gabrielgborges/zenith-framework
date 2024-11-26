@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EndGameScreen : MonoBehaviour
+public class EndGameScreenView : ScreenViewBase
 {
     [SerializeField] private Image _screenLayout;
     [SerializeField] private TextMeshProUGUI _playerWinnerText;

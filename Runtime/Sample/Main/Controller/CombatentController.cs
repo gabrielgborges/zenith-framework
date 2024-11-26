@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Combatent : MonoBehaviour, ICombatent
+public class Combatent : ControllerBase, ICombatent
 {
     public Action<Combatent> OnDie;
     public Action<int, int> OnTookDamage;
