@@ -1,1 +1,0 @@
-public class RetryMatchEvent : GameEvent { }
