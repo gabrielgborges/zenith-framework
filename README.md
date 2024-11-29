@@ -1,0 +1,137 @@
+# Zenith Framework
+
+Welcome to the **Zenith Framework**! This Unity framework is designed to streamline the development of Unity projects, particularly gameplay-focused ones, by providing a structured, maintainable architecture. It helps new and experienced developers start their projects faster while ensuring scalability and reliability as the codebase grows.
+
+---
+
+## Introduction
+
+### Why Use Zenith Framework?
+
+When developing medium-to-large-scale Unity projects, maintaining clean, modular, and scalable code becomes challenging. The Zenith Framework is built on principles derived from *Clean Architecture* to solve this problem, ensuring:
+
+- **Rapid Development:** Start your projects with a solid architecture that reduces setup time.
+- **Maintainability:** Easily locate and fix bugs or add new features without breaking existing functionality.
+- **Scalability:** Expand your game systems seamlessly as your project grows.
+- **Reusability:** Create reusable components that can speed up future projects.
+
+The framework utilizes **Component** and **ServiceLocator** architectures to keep your code decoupled and flexible. It emphasizes creating modular systems, enabling developers to replace or extend functionality without widespread code changes.
+
+---
+
+## Core Principles
+
+Zenith Framework is grounded in these three architectural principles:
+
+1. **Common Closure Principle**:
+   - Group classes that change for the same reason to simplify maintenance.
+
+2. **Common Reuse Principle**:
+   - Avoid dependencies on classes you don't use.
+
+3. **Reuse/Release Equivalence Principle**:
+   - Group classes to maximize reusability and minimize unnecessary coupling.
+
+These principles ensure that your code remains clean, adaptable, and aligned with industry standards.
+
+> *Reference:* "Clean Architecture: A Craftsman's Guide to Software Structure and Design" by Robert C. Martin.
+
+### Tip:
+Treat the Zenith Framework like a tool—test it thoroughly before fully integrating it into your project. A long-term relationship starts with a few good dates! 😉
+
+---
+
+## Key Concepts and Components
+
+### 1. Service
+A **Service** is a core system that provides functionality widely used across your game. Examples include:
+
+- Object Pooling
+- VFX Spawner
+- Time Manager
+- Screen Spawner
+
+**Why Services?**
+Services are accessed via the **ServiceLocator** and use interfaces to enforce limited, controlled access. This design ensures that:
+
+- Complex logic can be refactored without affecting dependent code.
+- Systems remain decoupled for easier maintainability and testing.
+- Replacement services can be easily swapped in with minimal changes.
+
+**Example:** Switching from Asset Bundles to Addressables in your Object Pooling system requires only creating a new implementation of the same interface.
+
+---
+
+### 2. Controller
+A **Controller** is a MonoBehaviour that manages events, data, and states within a specific context. It serves as the bridge between the **Services** and **Components**.
+
+Controllers should:
+- Hold state information relevant to a feature or system.
+- Act as a hub for other **Components** to update or retrieve state data.
+
+---
+
+### 3. Component
+A **Component** implements the primary logic of a feature while interacting with Services or Controllers. Components are designed to:
+
+- Focus on a single feature per class.
+- Be reusable across different systems or contexts.
+
+**Relationships with Controllers:**
+1. Update the Controller's state when necessary.
+2. Implement the features associated with the Controller.
+
+This separation ensures that changes to a specific feature only affect the associated Component, leaving Controllers and Services intact.
+
+**Example:** A `HealthComponent` manages the health logic, while the `HealthController` tracks and communicates health states to other systems.
+
+---
+
+### 4. Event Service
+The **Event Service** enables decoupled communication between Components and Controllers, ensuring they remain independent and reusable. 
+
+#### How to Use the Event Service:
+1. Create a script for your event (e.g., `OnGameStartEvent`) in the `Events` folder.
+2. Inherit the script from `GameEventBase`.
+3. Add a constructor to store data if required.
+4. Subscribe to the event using:
+   
+    IEventService.AddEventListener<YourEvent>(Action<YourEvent> yourMethod, GetHashCode());
+
+6. Invoke the event with:
+
+  IEventService.TryInvokeEvent(new YourEvent(data));
+
+7. Unsubscribe when necessary to avoid memory leaks.
+
+   
+Example Use Case: Notify all relevant systems when the game starts without creating direct dependencies between them.
+
+#### Additional Services
+The Zenith Framework includes additional ready-to-use services such as:
+
+**Object Pooling**: Efficiently reuse objects to reduce memory allocations and improve performance.
+**More Services Coming Soon!** (Stay tuned for documentation.)
+#### Getting Started
+Follow these steps to integrate the Zenith Framework into your Unity project:
+
+Download and Import:
+
+Clone the repository or add the framework as a Unity package.
+Set Up Your Services:
+
+Define and register your Services using the ServiceLocator.
+Create Controllers and Components:
+
+Use Controllers to manage game state and Components to implement feature-specific logic.
+Leverage the Event Service:
+
+Utilize events for decoupled communication between systems.
+
+#### Contributing
+Contributions to the Zenith Framework are welcome! If you encounter issues or have ideas for new features, feel free to:
+
+Submit a pull request.
+Open an issue on GitHub.
+#### License
+This project is licensed under the MIT License. See the LICENSE file for details.
