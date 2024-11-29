@@ -91,47 +91,84 @@ This separation ensures that changes to a specific feature only affect the assoc
 The **Event Service** enables decoupled communication between Components and Controllers, ensuring they remain independent and reusable. 
 
 #### How to Use the Event Service:
-1. Create a script for your event (e.g., `OnGameStartEvent`) in the `Events` folder.
-2. Inherit the script from `GameEventBase`.
-3. Add a constructor to store data if required.
-4. Subscribe to the event using:
+1. **Create Your Event Class:**
+   - Create a script with the name of your event (e.g., `OnGameStartEvent`) in your `Events` folder.
+   - Make this script inherit from `GameEventBase`.
+
+   ```csharp
+   public class OnGameStartEvent : GameEventBase
+   {
+       public string Message { get; }
+
+       public OnGameStartEvent(string message)
+       {
+           Message = message;
+       }
+   }
+   
+2. **Subscribe to the event:**
+
+   Use the IEventService.AddEventListener method to subscribe to your event. Ensure to pass your method and a unique hash code.
    
     IEventService.AddEventListener<YourEvent>(Action<YourEvent> yourMethod, GetHashCode());
 
-6. Invoke the event with:
+3. **Invoke the event with:**
 
   IEventService.TryInvokeEvent(new YourEvent(data));
 
-7. Unsubscribe when necessary to avoid memory leaks.
-
+4. **You can unsubscribe at any time.**
+To prevent memory leaks or unexpected behavior, unsubscribe from events when they're no longer needed.
+csharp
+Copiar código
+IEventService.RemoveEventListener<OnGameStartEvent>(GetHashCode());
    
 Example Use Case: Notify all relevant systems when the game starts without creating direct dependencies between them.
+
+---
 
 #### Additional Services
 The Zenith Framework includes additional ready-to-use services such as:
 
 **Object Pooling**: Efficiently reuse objects to reduce memory allocations and improve performance.
-**More Services Coming Soon!** (Stay tuned for documentation.)
-#### Getting Started
+**More Services Coming Soon!** (Stay tuned for additional services and documentation.)
+
+---
+#### **Download the Framework Using UPM(Recommended)**
+
+1. Open the Unity Package Manager.
+2. Select the 'Add package from Git URL' option.
+4. Paste  *https://github.com/gabrielgborges/zenith-framework.git*
+
+---
+
+#### **Getting Started**
 Follow these steps to integrate the Zenith Framework into your Unity project:
 
-Download and Import:
+1. **Download the Framework:**
 
-Clone the repository or add the framework as a Unity package.
-Set Up Your Services:
+   Clone the repository and paste in your project or include it using the UPM method above.
 
-Define and register your Services using the ServiceLocator.
-Create Controllers and Components:
+2. **Set Up Services:**
 
-Use Controllers to manage game state and Components to implement feature-specific logic.
-Leverage the Event Service:
+   Use the ServiceLocator to register and access your custom services.
 
-Utilize events for decoupled communication between systems.
+3. **Use Controllers and Components:**
+
+   Leverage Controllers for managing state and Components for implementing features.
+
+4. **Integrate Event-Driven Architecture:**
+
+   Utilize the Event Service to enable decoupled communication between systems.
+
+---
 
 #### Contributing
 Contributions to the Zenith Framework are welcome! If you encounter issues or have ideas for new features, feel free to:
 
 Submit a pull request.
 Open an issue on GitHub.
+
+---
+
 #### License
 This project is licensed under the MIT License. See the LICENSE file for details.
