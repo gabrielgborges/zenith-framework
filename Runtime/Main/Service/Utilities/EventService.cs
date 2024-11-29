@@ -16,10 +16,10 @@ public sealed class EventService : BaseService, IEventService
         ServiceLocator.RemoveService<IEventService>(this);
     }
 
-    public void AddListener<T>(Action<T> action, int listenerHashCode) where T : GameEvent
+    public void AddListener<T>(Action<T> action, int listenerHashCode) where T : GameEventBase
     {
         int actionTypeHashCode = typeof(T).GetHashCode();
-        Action<GameEvent> castedGameEvent = myEvent => action((T)myEvent);
+        Action<GameEventBase> castedGameEvent = myEvent => action((T)myEvent);
         GameEventListened gameEventAndListener = new GameEventListened(listenerHashCode, castedGameEvent);
 
         if (_eventHashAndListeners.ContainsKey(actionTypeHashCode))
@@ -31,7 +31,7 @@ public sealed class EventService : BaseService, IEventService
         _eventHashAndListeners.Add(actionTypeHashCode, new List<GameEventListened>() { gameEventAndListener });
     }
 
-    public void RemoveListener<T>(int listenerHashCode) where T : GameEvent
+    public void RemoveListener<T>(int listenerHashCode) where T : GameEventBase
     {
         int hashCode = typeof(T).GetHashCode();
 
@@ -50,7 +50,7 @@ public sealed class EventService : BaseService, IEventService
         Debug.Log("Dictionary keys: " + _eventHashAndListeners.Keys.Count);
     }
 
-    public void TryInvokeEvent(GameEvent gameEvent)
+    public void TryInvokeEvent(GameEventBase gameEvent)
     {
         int hashCode = gameEvent.GetType().GetHashCode();
 
@@ -90,9 +90,9 @@ public sealed class EventService : BaseService, IEventService
 internal struct GameEventListened
 {
     public int ListenerHashCode;
-    public Action<GameEvent> GameEvent;
+    public Action<GameEventBase> GameEvent;
 
-    public GameEventListened(int listenerHashCode, Action<GameEvent> gameEvent)
+    public GameEventListened(int listenerHashCode, Action<GameEventBase> gameEvent)
     {
         ListenerHashCode = listenerHashCode;
         GameEvent = gameEvent;

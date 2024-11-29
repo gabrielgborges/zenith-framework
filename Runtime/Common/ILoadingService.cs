@@ -5,7 +5,7 @@ using UnityEngine;
 
 public interface ILoadingService : IService
 {
-    public void LoadForFixedTime(float seconds, GameEvent eventToInvoke = null);
+    public void LoadForFixedTime(float seconds, GameEventBase eventToInvoke = null);
     public UniTask WaitForLoading(float seconds);
     public UniTask StartLoading();
     public UniTask EndLoading();
