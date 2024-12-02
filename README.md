@@ -1,6 +1,6 @@
 # Zenith Framework
 
-Welcome to the **Zenith Framework**! This Unity framework is designed to streamline the development of Unity projects, particularly gameplay-focused ones, by providing a structured, maintainable architecture. It helps new and experienced developers start their projects faster while ensuring scalability and reliability as the codebase grows.
+Welcome to the **Zenith Framework**! Based on *Clean Architecture*, *Clean Code*, *Game Programming Patterns* and industry experience, this Unity framework is designed to help new and experienced developers start their projects faster while ensuring scalability and reliability as the codebase grows.
 
 ---
 
@@ -10,9 +10,9 @@ Welcome to the **Zenith Framework**! This Unity framework is designed to streaml
 
 When developing medium-to-large-scale Unity projects, maintaining clean, modular, and scalable code becomes challenging. The Zenith Framework is built on principles derived from *Clean Architecture* to solve this problem, ensuring:
 
-- **Rapid Development:** Start your projects with a solid architecture that reduces setup time.
-- **Maintainability:** Easily locate and fix bugs or add new features without breaking existing functionality.
-- **Scalability:** Expand your game systems seamlessly as your project grows.
+- **Rapid Development:** Start your projects with a solid architecture and **ready-to-use systems**, reducing the setup time.
+- **Maintainability:** Easily locate and fix bugs.
+- **Scalability:** Expand your game systems and add new features without breaking existing functionality.
 - **Reusability:** Create reusable components that can speed up future projects.
 
 The framework utilizes **Component** and **ServiceLocator** architectures to keep your code decoupled and flexible. It emphasizes creating modular systems, enabling developers to replace or extend functionality without widespread code changes.
@@ -34,6 +34,8 @@ Zenith Framework is grounded in these three architectural principles:
 
 These principles ensure that your code remains clean, adaptable, and aligned with industry standards.
 
+![alt text](https://github.com/gabrielgborges/zenith-framework/blob/gabrielgborges-patch-1/DOCUMENTATION/CleanArchitectureBook.png?raw=true)
+
 > *Reference:* "Clean Architecture: A Craftsman's Guide to Software Structure and Design" by Robert C. Martin.
 
 ### Tip:
@@ -49,46 +51,68 @@ A **Service** is a core system that provides functionality widely used across yo
 - Object Pooling
 - VFX Spawner
 - Time Manager
-- Screen Spawner
+- Screen Manager
 
 **Why Services?**
 Services are accessed via the **ServiceLocator** and use interfaces to enforce limited, controlled access. This design ensures that:
 
 - Complex logic can be refactored without affecting dependent code.
-- Systems remain decoupled for easier maintainability and testing.
+- Systems remain decoupled for easier maintainability, testing and bugfixing.
 - Replacement services can be easily swapped in with minimal changes.
 
 **Example:** Switching from Asset Bundles to Addressables in your Object Pooling system requires only creating a new implementation of the same interface.
 
+Before refactor:
+
+
+![alt text](https://github.com/gabrielgborges/zenith-framework/blob/gabrielgborges-patch-1/DOCUMENTATION/Services.png?raw=true)
+
+
+After refactor:
+
+
+![alt text](https://github.com/gabrielgborges/zenith-framework/blob/gabrielgborges-patch-1/DOCUMENTATION/ServicesNewImplementation.png?raw=true)
+
 ---
 
-### 2. Controller
-A **Controller** is a MonoBehaviour that manages events, data, and states within a specific context. It serves as the bridge between the **Services** and **Components**.
+### 2. Entity
+A **Entity** is a MonoBehaviour that manages events, data, and states within a specific context. It serves as the bridge between the **Services** and **Components**.
 
-Controllers should:
+Entitys should:
 - Hold state information relevant to a feature or system.
 - Act as a hub for other **Components** to update or retrieve state data.
+
+
+General application example:
+
+![alt text](https://github.com/gabrielgborges/zenith-framework/blob/gabrielgborges-patch-1/DOCUMENTATION/GenericApplication.png?raw=true)
 
 ---
 
 ### 3. Component
-A **Component** implements the primary logic of a feature while interacting with Services or Controllers. Components are designed to:
+A **Component** implements the primary logic of a feature while interacting with Services or Entitys. Components are designed to:
 
 - Focus on a single feature per class.
 - Be reusable across different systems or contexts.
 
-**Relationships with Controllers:**
-1. Update the Controller's state when necessary.
-2. Implement the features associated with the Controller.
+**Relationships with Entitys:**
+1. Update the Entity's state when necessary.
+2. Implement the features associated with the Entity.
 
-This separation ensures that changes to a specific feature only affect the associated Component, leaving Controllers and Services intact.
+![alt text](https://github.com/gabrielgborges/zenith-framework/blob/gabrielgborges-patch-1/DOCUMENTATION/EntityComponentRelation.png?raw=true)
 
-**Example:** A `HealthComponent` manages the health logic, while the `HealthController` tracks and communicates health states to other systems.
+This separation ensures that changes to a specific feature only affect the associated Component, leaving Entitys and Services intact.
+
+**Example:** A `HealthComponent` manages the health logic, while the `HealthEntity` tracks and communicates health states to other systems.
 
 ---
 
 ### 4. Event Service
-The **Event Service** enables decoupled communication between Components and Controllers, ensuring they remain independent and reusable. 
+The **Event Service** enables decoupled communication between Components and Entitys, ensuring they remain independent and reusable. 
+
+
+![alt text](https://github.com/gabrielgborges/zenith-framework/blob/gabrielgborges-patch-1/DOCUMENTATION/EventServiceExample.png?raw=true)
+
 
 #### How to Use the Event Service:
 1. **Create Your Event Class:**
@@ -152,9 +176,9 @@ Follow these steps to integrate the Zenith Framework into your Unity project:
 
    Use the ServiceLocator to register and access your custom services.
 
-3. **Use Controllers and Components:**
+3. **Use Entitys and Components:**
 
-   Leverage Controllers for managing state and Components for implementing features.
+   Leverage Entitys for managing state and Components for implementing features.
 
 4. **Integrate Event-Driven Architecture:**
 
