@@ -35,7 +35,7 @@ public static class ServiceLocator
             }
         }
 
-        Debug.LogError("No service " + typeof(T) + " was found, trying again"); // TODO
+        Debug.LogWarning("No service " + typeof(T) + " was found, waiting for one...");
         int lastServicesAmount = _currentServices.Count;
         await UniTask.WaitUntil(() => _currentServices.Count != lastServicesAmount);
         return await GetService<T>();
