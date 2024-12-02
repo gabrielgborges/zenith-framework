@@ -34,7 +34,7 @@ Zenith Framework is grounded in these three architectural principles:
 
 These principles ensure that your code remains clean, adaptable, and aligned with industry standards.
 
-![alt text](https://github.com/gabrielgborges/zenith-framework/blob/gabrielgborges-patch-1/DOCUMENTATION/CleanArchitectureBook.png?raw=true)
+![alt text](https://github.com/gabrielgborges/zenith-framework/blob/main/DOCUMENTATION/CleanArchitectureBook.png?raw=true)
 
 > *Reference:* "Clean Architecture: A Craftsman's Guide to Software Structure and Design" by Robert C. Martin.
 
@@ -65,13 +65,13 @@ Services are accessed via the **ServiceLocator** and use interfaces to enforce l
 Before refactor:
 
 
-![alt text](https://github.com/gabrielgborges/zenith-framework/blob/gabrielgborges-patch-1/DOCUMENTATION/Services.png?raw=true)
+![alt text](https://github.com/gabrielgborges/zenith-framework/blob/main/DOCUMENTATION/Services.png?raw=true)
 
 
 After refactor:
 
 
-![alt text](https://github.com/gabrielgborges/zenith-framework/blob/gabrielgborges-patch-1/DOCUMENTATION/ServicesNewImplementation.png?raw=true)
+![alt text](https://github.com/gabrielgborges/zenith-framework/blob/main/DOCUMENTATION/ServicesNewImplementation.png?raw=true)
 
 ---
 
@@ -85,7 +85,7 @@ Entitys should:
 
 General application example:
 
-![alt text](https://github.com/gabrielgborges/zenith-framework/blob/gabrielgborges-patch-1/DOCUMENTATION/GenericApplication.png?raw=true)
+![alt text](https://github.com/gabrielgborges/zenith-framework/blob/main/DOCUMENTATION/GenericApplication.png?raw=true)
 
 ---
 
@@ -99,7 +99,7 @@ A **Component** implements the primary logic of a feature while interacting with
 1. Update the Entity's state when necessary.
 2. Implement the features associated with the Entity.
 
-![alt text](https://github.com/gabrielgborges/zenith-framework/blob/gabrielgborges-patch-1/DOCUMENTATION/EntityComponentRelation.png?raw=true)
+![alt text](https://github.com/gabrielgborges/zenith-framework/blob/main/DOCUMENTATION/EntityComponentRelation.png?raw=true)
 
 This separation ensures that changes to a specific feature only affect the associated Component, leaving Entitys and Services intact.
 
@@ -111,7 +111,7 @@ This separation ensures that changes to a specific feature only affect the assoc
 The **Event Service** enables decoupled communication between Components and Entitys, ensuring they remain independent and reusable. 
 
 
-![alt text](https://github.com/gabrielgborges/zenith-framework/blob/gabrielgborges-patch-1/DOCUMENTATION/EventServiceExample.png?raw=true)
+![alt text](https://github.com/gabrielgborges/zenith-framework/blob/main/DOCUMENTATION/EventServiceExample.png?raw=true)
 
 
 #### How to Use the Event Service:
