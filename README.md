@@ -116,37 +116,92 @@ The **Event Service** enables decoupled communication between Components and Ent
 
 #### How to Use the Event Service:
 1. **Create Your Event Class:**
-   - Create a script with the name of your event (e.g., `OnGameStartEvent`) in your `Events` folder.
+   - Create a script with the name of your event (e.g., `EnableInputsEvent`) in your `Events` folder.
    - Make this script inherit from `GameEventBase`.
 
-   ```csharp
-   public class OnGameStartEvent : GameEventBase
-   {
-       public string Message { get; }
+```csharp
+public class EnableInputsEvent : GameEventBase
+{
+   public bool Enable { get; private set; }
 
-       public OnGameStartEvent(string message)
-       {
-           Message = message;
-       }
+   public EnableInputsEvent(bool enable)
+   {
+      Enable = enable;
    }
+}
+   ```
    
 2. **Subscribe to the event:**
 
-   Use the IEventService.AddEventListener method to subscribe to your event. Ensure to pass your method and a unique hash code.
+   - Use the IEventService.AddEventListener method to subscribe to your event (in this case: EnableInputsEvent). Ensure to pass your method and a unique hash code.
+  ```csharp
+public class CombatentAIComponent : MonoBehaviour
+{
+    [SerializeField] private InputActionAsset _inputActions;
    
-    IEventService.AddEventListener<YourEvent>(Action<YourEvent> yourMethod, GetHashCode());
+    private bool _isEnabled = false;
+    private IEventService _eventService;
+
+    private async void Awake()
+    {
+        _eventService = await ServiceLocator.GetService<IEventService>();
+        _eventService.AddListener<EnableInputsEvent>(HandleEnableInputs, GetHashCode());
+    }
+
+    private void HandleEnableInputs(EnableInputsEvent inputEvent)
+    {
+        if (inputEvent.Enable)
+        {
+            // Implementation here...
+        }
+        else
+        {
+            // Different implementation here...
+        }
+    }
+}
+```
 
 3. **Invoke the event with:**
 
-  IEventService.TryInvokeEvent(new YourEvent(data));
+  - IEventService.TryInvokeEvent(new YourEvent(data));
+  
+```csharp
+public class GameSystemComponent : MonoBehaviour
+{
+   private bool _fightIsOn = false;
+
+   private IEventService _eventService;
+
+   private void Awake()
+   {
+      StartMatch();
+   }
+
+    private async void StartMatch()
+    {
+        await Task.Delay(1000);
+        _eventService = await ServiceLocator.GetService<IEventService>();
+        _eventService.TryInvokeEvent(new EnableInputsEvent(true));
+        _fightIsOn = true;
+    }
+}
+  ```
 
 4. **You can unsubscribe at any time.**
-To prevent memory leaks or unexpected behavior, unsubscribe from events when they're no longer needed.
-csharp
-Copiar código
-IEventService.RemoveEventListener<OnGameStartEvent>(GetHashCode());
-   
-Example Use Case: Notify all relevant systems when the game starts without creating direct dependencies between them.
+   - To prevent memory leaks or unexpected behavior, unsubscribe from events when they're no longer needed.
+
+  
+   ```csharp
+   public class CombatentAiComponent : MonoBehaviour
+   ...
+   private void OnDestroy()
+    {
+        _eventService.RemoveListener<EnableInputsEvent>(GetHashCode());
+    }
+   ```
+
+   Example Use Case: Notify all relevant systems when the game starts without creating direct dependencies between them.
 
 ---
 
