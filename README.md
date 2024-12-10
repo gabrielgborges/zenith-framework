@@ -255,6 +255,26 @@ Follow these steps to integrate the Zenith Framework into your Unity project:
 
 ---
 
+#### Dependencies
+
+## UniTask Dependency
+The Zenith Framework depends on the UniTask library for asynchronous operations. If you do not have UniTask installed, it will automatically be included as part of this framework's installation.
+
+UniTask Repository: https://github.com/Cysharp/UniTask
+
+## What to Do if You Already Have UniTask Installed
+If your project already includes the UniTask package, you might encounter dependency conflicts. Here’s how to resolve them:
+
+# Remove the UniTask package from your repository before downloading the Zenith Framework
+
+OR
+
+# Delete the UniTask package inside the Zenith Framework, after downloading it
+
+![alt text](https://github.com/gabrielgborges/zenith-framework/blob/main/DOCUMENTATION/UnitaskPath.png?raw=true)
+
+---
+
 #### Contributing
 Contributions to the Zenith Framework are welcome! If you encounter issues or have ideas for new features, feel free to:
 
