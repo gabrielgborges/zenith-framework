@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class BaseService : MonoBehaviour
+public abstract class ServiceBase : MonoBehaviour
 {
     public abstract void Setup();
 

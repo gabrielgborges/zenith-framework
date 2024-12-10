@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ObjectPoolSystem : BaseService, IObjectPoolingService
+public class ObjectPoolSystem : ServiceBase, IObjectPoolingService
 {
     private Dictionary<int, List<ObjectPooledBase>> _objectsSpawnedById = new Dictionary<int, List<ObjectPooledBase>>();
     private Dictionary<int, ObjectToPoolConfiguration> _objectConfigurationById = new Dictionary<int, ObjectToPoolConfiguration>();
