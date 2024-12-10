@@ -220,6 +220,20 @@ The Zenith Framework includes additional ready-to-use services such as:
 
 ---
 
+#### **Add the Framework by Modifying the manifest.json File**
+
+1. Navigate to the Packages folder in your Unity project directory and open the manifest.json file using a text editor or IDE.
+2. Insert *"gabi.zenith.framework": "https://github.com/gabrielgborges/zenith-framework.git"* in the "dependencies" section of the manifest.json file.
+3. Save the changes to the manifest.json file and return to Unity, it will automatically download and integrate the Zenith Framework package.
+
+![alt text](https://github.com/gabrielgborges/zenith-framework/blob/main/DOCUMENTATION/AddPackageByManifest.mp4?raw=true)
+
+Additional Notes:
+Ensure that Git is installed on your system because Unity requires Git to fetch packages directly from GitHub.
+
+---
+
+
 #### **Getting Started**
 Follow these steps to integrate the Zenith Framework into your Unity project:
 
