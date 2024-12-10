@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public sealed class EventService : BaseService, IEventService
+public sealed class EventService : ServiceBase, IEventService
 {
     private Dictionary<int, List<GameEventListened>> _eventHashAndListeners = new Dictionary<int, List<GameEventListened>>();
 
