@@ -205,6 +205,70 @@ public class GameSystemComponent : MonoBehaviour
 
 ---
 
+### 5. Screen Service
+
+**How to Use the Screen Service**
+
+Loads and manage screens in Unity projects. Follow these steps to understand and implement it effectively in your projects.
+
+1. **Understanding the Screen Service**
+
+The ScreenService implementation allows you to load a prefab dynamically, in this case, from the Unity Resources folder. The prefab is identified by appending the suffix Screen to the name of the provided GameScreen enum value. The service ensures decoupled and maintainable screen management in your project, with no need for serializable references.
+
+Key Method:
+
+```csharp
+void LoadScreen<T>(GameScreen gameScreen, Action<T> openedCallback) where T : ScreenControllerBase;
+```
+
+2. **Using the Screen Service**
+
+Here’s an example of how to load and use the Screen Service.
+
+Example Implementation:
+
+```csharp
+public class ScreenServiceTest : MonoBehaviour
+{
+    private void Start()
+    {
+        Initialize();
+    }
+
+   private async void Initialize()
+   {
+      IScreenService screenService = await ServiceLocator.GetService<IScreenService>();
+      screenService.LoadScreen<ScreenControllerTest>(GameScreen.EXAMPLE, OnLoadScreen);
+   }
+
+    private async void OnLoadScreen(ScreenControllerTest screen)
+    {
+        ...
+    }
+}
+```
+
+3. **Steps to Use the Screen Service**
+
+   1.Define Your Screens: Create an enum for all your screens. For example:
+
+```csharp
+public enum GameScreen
+{
+    EXAMPLE,
+    MAIN_MENU,
+    GAMEPLAY
+}
+```
+
+   2.Create a Prefab: Place your screen prefab in the Resources folder. Name it after the GameScreen enum value with the suffix Screen (e.g., EXAMPLEScreen.prefab).
+
+   3.Implement a Controller: Extend ScreenControllerBase for your custom screen behavior.
+
+   4.Load the Screen: Use IScreenService.LoadScreen<T>(GameScreen screen, Action<T> callback) to dynamically load and manage the screen, using the callback provided to modify the screen or perform some logic after it is loaded and          opened.
+
+---
+
 #### Additional Services
 The Zenith Framework includes additional ready-to-use services such as:
 
