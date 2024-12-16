@@ -261,11 +261,53 @@ public enum GameScreen
 }
 ```
 
-   2.Create a Prefab: Place your screen prefab in the Resources folder. Name it after the GameScreen enum value with the suffix Screen (e.g., EXAMPLEScreen.prefab).
+   2.Create a Prefab and place it in the Resources folder. Name it after the GameScreen enum value with the suffix Screen (e.g., ExampleScreen.prefab).
 
-   3.Implement a Controller: Extend ScreenControllerBase for your custom screen behavior.
+   ![alt text](https://github.com/gabrielgborges/zenith-framework/blob/main/DOCUMENTATION/ExampleScreenPrefab.png?raw=true)
 
-   4.Load the Screen: Use IScreenService.LoadScreen<T>(GameScreen screen, Action<T> callback) to dynamically load and manage the screen, using the callback provided to modify the screen or perform some logic after it is loaded and          opened.
+   3.Implement a Controller script extending ScreenControllerBase for your custom screen behavior.
+
+```csharp
+   public class ExampleScreenController : ScreenControllerBase
+{
+    public override void Open()
+    {
+        base.Open();
+        //...
+    }
+
+    public override void Close()
+    {
+        base.Close();
+        //...
+        Destroy(gameObject);
+    }
+}
+```
+
+   4.Load the Screen using LoadScreen<YourScreenType>(GameScreen screen, Action<YourScreenType> callback) to dynamically load and manage the screen, using the callback provided to modify the screen or perform some logic after it is loaded and opened.
+   
+```csharp
+public class Example : MonoBehaviour
+{
+    private async void Start()
+    {
+        OpenScreen();
+    }
+
+   private async void OpenScreen()
+   {
+      IScreenService screenService = await ServiceLocator.GetService<IScreenService>();
+      screenService.LoadScreen<ExampleScreenController>(GameScreen.EXAMPLE, OnLoadScreen);
+   }
+
+    private async void OnLoadScreen(ExampleScreenController screen)
+    {
+        //...
+        screen.Close();
+    }
+}
+```
 
 ---
 
@@ -329,11 +371,11 @@ UniTask Repository: https://github.com/Cysharp/UniTask
 ## What to Do if You Already Have UniTask Installed
 If your project already includes the UniTask package, you might encounter dependency conflicts. Here’s how to resolve them:
 
-# Remove the UniTask package from your repository before downloading the Zenith Framework
+### Remove the UniTask package from your repository before downloading the Zenith Framework
 
 OR
 
-# Delete the UniTask package inside the Zenith Framework, after downloading it
+### Delete the UniTask package inside the Zenith Framework, after downloading it
 
 ![alt text](https://github.com/gabrielgborges/zenith-framework/blob/main/DOCUMENTATION/UnitaskPath.png?raw=true)
 
