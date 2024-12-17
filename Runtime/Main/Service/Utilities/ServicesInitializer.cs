@@ -4,17 +4,12 @@ using UnityEngine.SceneManagement;
 
 public class ServicesInitializer : MonoBehaviour
 {
-    [SerializeReference] private BaseService[] _services;
+    [SerializeReference] private ServiceBase[] _services;
 
     private void Awake()
     {
         SetupServices();
         DontDestroyOnLoad(gameObject);
-    }
-
-    private void Start()
-    {
-        SceneManager.LoadScene("GameScene");
     }
 
     private void OnDestroy()
@@ -24,7 +19,7 @@ public class ServicesInitializer : MonoBehaviour
 
     private void SetupServices()
     {
-        foreach (BaseService service in _services)
+        foreach (ServiceBase service in _services)
         {
             service.Setup();
         }
@@ -32,7 +27,7 @@ public class ServicesInitializer : MonoBehaviour
 
     private void DisposeServices()
     {
-        foreach (BaseService service in _services)
+        foreach (ServiceBase service in _services)
         {
             service.Dispose();
         }
